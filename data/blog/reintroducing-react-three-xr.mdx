@@ -1,0 +1,103 @@
+---
+title: 'Reintroducing @react-three/xr'
+date: '2024-07-17'
+lastmod: '2024-07-17'
+tags: ['xr', 'react-three']
+draft: false
+summary: 'Reintroducing the @react-three/xr library'
+authors: ['bela']
+---
+
+We are excited to introduce `@react-three/xr` v6, a major overhaul to the [`@react-three/xr` package](https://github.com/pmndrs/xr) and a key missing peace to the **react-three ecosystem**, which enables developers to leverage the latest AR and VR capabilities in their React Three Fiber applications.
+
+![Reintroducing react-three-xr](/static/images/reintroducing-react-three-xr.gif)
+
+## What's new?
+
+During the last months rebuilding `@react-three/xr` we focussed on three aspects: **Ecosystem**, **Simplicity**, and **Capbilities**.
+
+We believe that a thriving **Ecosystem** builds on interopable elements. Therefore, we focussed on making `@react-three/xr` more interoperable with other packages of the react-three ecosystem by using the same events system as non-XR interactions. This interoperability enables interactions with packages, such as [pmndrs/uikit](https://github.com/pmndrs/uikit), out of the box, bringing interactable user interfaces to XR, both using touching, grabbing, and pointing. Futhermore, this interoperability enables developers to reuse their existing interactions in XR. We demonstrated this interoperability by bringing 6 iconic React Three Fiber examples to XR, which can be [here](https://docs.pmnd.rs/xr/getting-started/examples).
+
+Our focus on **Simplicity** allowed us to reduce the boilerplate that developers need to get started by providing more configurable defaults, such as Hand and Controller Interactions. Additionally, we now provide [a new documentation](https://docs.pmnd.rs/xr/) that simplifies how developers get started and offers tutorials explaining how to leverage specific features of `@react-three/xr`.
+
+In addition to new interactions, `@react-three/xr` also provides new **Capabilities** brought by WebXR, such as mesh detection provided using high—and low-level abstractions, plane detection, and more.
+
+Lastly, I'd like to introduce myself. I am Bela, the new maintainer of `@react-three/xr`. I'm also the maintainer of pmndrs/uikit, and I've been active in the Open Source WebXR space for a few years now. In case you are on the [pmndrs discord](https://discord.com/invite/poimandres) you might have already seen me, if not, feel free to reach out 👋
+
+In combination, we believe that these changes will allow `@react-three/xr` to simplify how developers build new or convert existing 3D applications into extraordinary XR experiences while leveraging the latest XR capabilities using only a few lines of code.
+
+## Sounds good. How to get started?
+
+In the following, we will introduce how you can set up a React Three Fiber app and enable XR with a simple example that toggles a 3D box's color between red and blue when clicked:
+
+![get stared simple example](/static/images/react-three-xr-example.gif)
+
+0. **Install the dependency**
+
+```bash
+npm install @react-three/xr@latest
+```
+
+1. **Create an XR Store:** Start by creating an XR store using `createXRStore()`.
+
+ ```jsx
+   import { createXRStore } from '@react-three/xr'
+
+   import { Canvas } from '@react-three/fiber'
+   import { XR } from '@react-three/xr'
+   import { useState } from 'react'
+
+   const store = createXRStore()
+ ```
+
+2. **Enter AR Mode:** Add a button to your app that allows users to enter AR mode by calling `store.enterAR()` when the button is clicked.
+
+ ```jsx
+   <button onClick={() => store.enterAR()}>Enter AR</button>
+ ```
+
+3. **Wrap with XR Component:** Wrap your 3D content inside the `<XR>` component and pass the store as a prop.
+
+ ```jsx
+   export function App() {
+     const [red, setRed] = useState(false)
+     return (
+     <>
+     <button onClick={() => store.enterAR()}>Enter AR</button>
+     <Canvas>
+     <XR store={store}>
+     <mesh
+               pointerEventsType={{ deny: 'grab' }}
+               onClick={() => setRed(!red)}
+               position={[0, 1, -1]}
+     >
+     <boxGeometry />
+     <meshBasicMaterial color={red ? 'red' : 'blue'} />
+     </mesh>
+     </XR>
+     </Canvas>
+     </>
+     )
+   }
+ ```
+
+## Tutorials and Features
+
+To go beyond this simple example and help you make the most out of the `@react-three/xr` features, we offer a variety of tutorials to get you started:
+
+- **[Interactions](https://docs.pmnd.rs/xr/tutorials/interactions):** Learn how to handle user interactions within your XR environment.
+- **[Options](https://docs.pmnd.rs/xr/tutorials/options):** Customize settings to fit your specific needs.
+- **[Object Detection](https://docs.pmnd.rs/xr/tutorials/object-detection):** Implement object detection seamlessly.
+- **[Origin](https://docs.pmnd.rs/xr/tutorials/origin):** Manage the origin point as well as rotation and scale of your XR scene.
+- **[Teleport](https://docs.pmnd.rs/xr/tutorials/teleport):** Enable teleportation as a way of navigating your scene.
+- **[Gamepad](https://docs.pmnd.rs/xr/tutorials/gamepad):** Leverage the gamepads of the controllers.
+- **[Custom Controllers and Hands](https://docs.pmnd.rs/xr/tutorials/custom-inputs)**: Provide your own controller or hand implementations.
+- **[Guards](https://docs.pmnd.rs/xr/tutorials/guards):** Control access to different parts of your XR scene.
+
+## Roadmap
+
+Looking ahead, we are planning to add even more features to `@react-three/xr`. Our roadmap includes recognizing and using gestures within your XR scenes, access to multimodal inputs, utilizing anchors to fix objects in space, managing multiple layers in your XR environment, overlaying DOM elements in your XR scene, tracking user body movements for a more immersive experience, implementing hit testing for accurate object placement, and building cross-platform controls such as `TransformControls` for the React-Three ecosystem.
+
+## Conclusion
+
+We are thrilled to bring the `@react-three/xr` overhaul to the react-three ecosystem. We are looking forward for what you will build with `@react-three/xr`. If you have any feedback, please let us know on the [repository](https://github.com/pmndrs/xr) or our [discord](https://discord.com/invite/poimandres). If you have any questions or suggestions, we'd love to hear from you ❤️
