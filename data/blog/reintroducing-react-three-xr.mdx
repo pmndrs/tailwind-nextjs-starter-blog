@@ -40,46 +40,46 @@ npm install @react-three/xr@latest
 
 1. **Create an XR Store:** Start by creating an XR store using `createXRStore()`.
 
- ```jsx
-   import { createXRStore } from '@react-three/xr'
+```jsx
+import { createXRStore } from '@react-three/xr'
 
-   import { Canvas } from '@react-three/fiber'
-   import { XR } from '@react-three/xr'
-   import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { XR } from '@react-three/xr'
+import { useState } from 'react'
 
-   const store = createXRStore()
- ```
+const store = createXRStore()
+```
 
 2. **Enter AR Mode:** Add a button to your app that allows users to enter AR mode by calling `store.enterAR()` when the button is clicked.
 
- ```jsx
-   <button onClick={() => store.enterAR()}>Enter AR</button>
- ```
+```jsx
+<button onClick={() => store.enterAR()}>Enter AR</button>
+```
 
 3. **Wrap with XR Component:** Wrap your 3D content inside the `<XR>` component and pass the store as a prop.
 
- ```jsx
-   export function App() {
-     const [red, setRed] = useState(false)
-     return (
-     <>
-     <button onClick={() => store.enterAR()}>Enter AR</button>
-     <Canvas>
-     <XR store={store}>
-     <mesh
-               pointerEventsType={{ deny: 'grab' }}
-               onClick={() => setRed(!red)}
-               position={[0, 1, -1]}
-     >
-     <boxGeometry />
-     <meshBasicMaterial color={red ? 'red' : 'blue'} />
-     </mesh>
-     </XR>
-     </Canvas>
-     </>
-     )
-   }
- ```
+```jsx
+export function App() {
+  const [red, setRed] = useState(false)
+  return (
+    <>
+      <button onClick={() => store.enterAR()}>Enter AR</button>
+      <Canvas>
+        <XR store={store}>
+          <mesh
+            pointerEventsType={{ deny: 'grab' }}
+            onClick={() => setRed(!red)}
+            position={[0, 1, -1]}
+          >
+            <boxGeometry />
+            <meshBasicMaterial color={red ? 'red' : 'blue'} />
+          </mesh>
+        </XR>
+      </Canvas>
+    </>
+  )
+}
+```
 
 ## Tutorials and Features
 
