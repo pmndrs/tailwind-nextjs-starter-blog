@@ -6,7 +6,7 @@ const siteMetadata = {
   description: 'Open source developer collective',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: `https://pmndrs.github.io${process.env.BASE_PATH || ''}`,
+  siteUrl: `https://pmnd.rs`,
   siteRepo: 'https://github.com/pmndrs/website',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
