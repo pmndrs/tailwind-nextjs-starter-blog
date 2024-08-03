@@ -164,7 +164,6 @@ function SubscribeToFrameloop() {
 type CanvasApi = {
   isPaused: boolean
   isLoaded: boolean
-  isLazyLoaded: boolean
   pause: () => void
   play: () => void
   onPauseCallbacks: (() => void)[]
@@ -172,13 +171,11 @@ type CanvasApi = {
   onPause: (callback: () => void) => () => void
   onPlay: (callback: () => void) => () => void
   setIsLoaded: (isLoaded: boolean) => void
-  setIsLazyLoaded: (isLazyLoaded: boolean) => void
 }
 
 export const useCanvasApi = create<CanvasApi>((set, get) => ({
   isPaused: true,
   isLoaded: false,
-  isLazyLoaded: typeof window === 'undefined' ? false : window.location.pathname !== '/',
   onPauseCallbacks: [],
   onPlayCallbacks: [],
   onPause: (callback) => {
@@ -206,5 +203,4 @@ export const useCanvasApi = create<CanvasApi>((set, get) => ({
     onPlay.forEach((fn) => fn())
   },
   setIsLoaded: (isLoaded) => set({ isLoaded }),
-  setIsLazyLoaded: (isLazyLoaded) => set({ isLazyLoaded }),
 }))

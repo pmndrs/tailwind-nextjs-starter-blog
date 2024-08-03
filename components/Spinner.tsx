@@ -1,11 +1,14 @@
 'use client'
 import { useSpring, a } from '@react-spring/web'
 import { useCanvasApi } from 'app/Canvas'
+import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 
 export function Spinner() {
   const isLoaded = useCanvasApi((state) => state.isLoaded)
-  const isLazyLoaded = useCanvasApi((state) => state.isLazyLoaded)
+  const pathname = usePathname()
+
+  const isLazyLoaded = pathname !== '/'
 
   const [props, springApi] = useSpring(() => ({ opacity: isLazyLoaded ? 0 : 1 }))
 
