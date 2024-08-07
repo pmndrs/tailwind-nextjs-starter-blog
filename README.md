@@ -8,6 +8,7 @@ $ npm ci
 
 ```sh
 $ cat <<EOF >data/blog/blah.mdx
+---
 title: 'Blah'
 date: '2024-07-15'
 ---
