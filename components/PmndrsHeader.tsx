@@ -111,6 +111,7 @@ const PmndrsHeader = () => {
               sm:block"
                 >
                   {link.title}
+                  {link.title === 'Docs' && <sup className="text-xs">{' ↗'}</sup>}
                 </Link>
               ))}
             <SearchButton />
